@@ -34,3 +34,20 @@ const Pokemon = (props) => {
     </div>
 }
 export default Pokemon
+
+/*
+calcular_stat (tipo) {
+    switch (tipo) {
+        case 0:
+            nuevo_stat  =  65 + nivel * 3;
+        break;
+        case 1:
+            nuevo_stat = 130 + nivel * 2
+        break;
+        case 2:
+            nuevo_stat = 60 + nivel * 2
+    }
+return stat
+}
+
+*/
