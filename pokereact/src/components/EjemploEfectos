@@ -1,0 +1,10 @@
+import { useState } from "react"
+const EjemploEfectos  = () => {
+    const [estudiar, setEstudiar] = useState ("un_poco");
+    const [disfrutar, setDisfrutar] = useState ("si");
+    useEffect (()  => {
+        setDisfrutar("lo_justo") //NO HAY BUCLE INFINITO, PQ EL USEEFFECT NO SE VOLVERÁ A EJECUTAR
+        setEstudiar("muchisimo"); 
+    }, [estudiar]); // SI HAY BUCLE INFINITO
+}
+export default EjemploEfectos

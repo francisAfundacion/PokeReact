@@ -1,5 +1,5 @@
 import axios from "axios"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { useParams } from "react-router-dom";
 
 const Pokemon = (props) => {
@@ -20,18 +20,16 @@ const Pokemon = (props) => {
     //FORMA ACCEDER PARTES VARIABLES DE LA URL
     const params = useParams();
 
-    const ID = params.id;
+    //Cambia estado => redenderiza componente y  lanza efectos
+    //COMO CORTA EL BUCLE INFINITO => CAMBIA_ESTADO => REDENDERIZA => SE LANZAN EFECTOS => IMP
+    //SOLUCIONAMOS AÑADIENDO UN PARÁMETRO, DE MODO QUE EL EFECTO SE EJECUTA SI
+    //SIEMPRE SE EJECUTA UNA VEZ AL INICIO Y SE CAMBIA ALGUNO DE LOS ESTADOS Y SE REPINTA , ENTONCES
+    // SE RELANZA
+    //efectos fase posterior redenderizado
+    // [] => PARA ROMPER EL BUCLE INFINITO
 
-
-    function getStat (nombreStat, arrayStats) {
-        const filtered_array = arrayStats.filter(s => s.stat.name === nombreStat)
-        if (filtered_array.length === 0) {
-            return -1
-        }
-        return filtered_array[0].base_stat;
-    }
-
-    //la sintaxis mas modernilla es async-await
+    useEffect(() => { //declarar un efecto, se ejecuta después del redenrizado
+          //la sintaxis mas modernilla es async-await
     //.then() => es un método que invoco sobre el .get
     //funcion del then, es la respuesta
     //then sucede cuando hayamos extraido la info
@@ -50,8 +48,29 @@ const Pokemon = (props) => {
         setBaseHP (getStat("hp",response.data.stats));
         setBaseAttack (getStat("attack",response.data.stats));
         setBaseDefense (getStat("defense",response.data.stats));
-
     })
+
+    }, []);
+    //siempre que cambia nivel se repinta y se lanza el efecto y si cambia algunos de los otros, el efecto
+    //no tiene lugar si cambia BaseHP
+    //EL ARRAY SI CAMBIA, DEBE DE ACTIVAR OTRO EFECTO
+    //
+    // [] => para romper el bucle infinito
+    // [] => indica que no hay dependencias, por lo que se 
+    
+
+    const ID = params.id;
+
+
+    function getStat (nombreStat, arrayStats) {
+        const filtered_array = arrayStats.filter(s => s.stat.name === nombreStat)
+        if (filtered_array.length === 0) {
+            return -1
+        }
+        return filtered_array[0].base_stat;
+    }
+
+  
 
     const onSubirNivel = (event) => { // on cuando suceda esto, buenas prácticas para nombres de f
         setNivel(nivel_antiguo => nivel_antiguo + 1)
