@@ -54,7 +54,6 @@ const Pokemon = (props) => {
     //siempre que cambia nivel se repinta y se lanza el efecto y si cambia algunos de los otros, el efecto
     //no tiene lugar si cambia BaseHP
     //EL ARRAY SI CAMBIA, DEBE DE ACTIVAR OTRO EFECTO
-    //
     // [] => para romper el bucle infinito
     // [] => indica que no hay dependencias, por lo que se 
     
